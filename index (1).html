@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fuel & Lift</title>
+<meta name="theme-color" content="#12202b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Fuel & Lift">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<style>
+:root{--bg:#e8edf2;--card:#fff;--ink:#12202b;--mute:#5d6b78;--line:#cfd8e0;--P:#2f5bff;--C:#d98e04;--F:#e4572e;--W:#0aa5c9;--S:#7a4df0;--ok:#1c8a5a;--btn:#12202b;--btnt:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e161d;--card:#17222c;--ink:#e8eef3;--mute:#8c9aa7;--line:#2a3845;--P:#6c8dff;--C:#f0b030;--F:#ff7a55;--W:#4cc9ec;--S:#a78bff;--ok:#3fc088;--btn:#e8eef3;--btnt:#0e161d}}
+:root[data-theme="dark"]{--bg:#0e161d;--card:#17222c;--ink:#e8eef3;--mute:#8c9aa7;--line:#2a3845;--P:#6c8dff;--C:#f0b030;--F:#ff7a55;--W:#4cc9ec;--S:#a78bff;--ok:#3fc088;--btn:#e8eef3;--btnt:#0e161d}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:500 15px/1.45 -apple-system,system-ui,sans-serif}
+main{max-width:560px;margin:0 auto;padding:14px 14px 40px}
+h1{font:700 26px/1 'Avenir Next Condensed','Arial Narrow',Impact,sans-serif;margin:4px 0 12px;letter-spacing:.2px}
+.tabs{display:flex;gap:4px;margin-bottom:12px}
+.tabs button{flex:1;padding:10px 0;min-width:0;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;font:600 13px -apple-system,system-ui,sans-serif;cursor:pointer}
+.tabs button[aria-selected=true]{background:var(--btn);color:var(--btnt);border-color:var(--btn)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid var(--P);outline-offset:2px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:12px}
+.date{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.date b{font:700 20px 'Avenir Next Condensed','Arial Narrow',sans-serif}
+.date button{width:42px;height:38px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;font-size:18px;cursor:pointer}
+.big{font:700 64px/0.9 'Avenir Next Condensed','Arial Narrow',Impact,sans-serif}
+.big small{font:600 16px -apple-system,system-ui,sans-serif;color:var(--mute);margin-left:6px}
+.bar{height:12px;background:var(--line);border-radius:6px;overflow:hidden;margin:4px 0 10px}
+.bar i{display:block;height:100%;border-radius:6px}
+.row{display:flex;justify-content:space-between;font-weight:600}
+.row span:last-child{color:var(--mute);font-weight:500}
+input,select{font:500 16px -apple-system,system-ui,sans-serif;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);min-width:0}
+.f{display:flex;gap:8px}.f input[type=text]{flex:1}
+.go{padding:10px 16px;border:0;border-radius:8px;background:var(--btn);color:var(--btnt);font:600 15px -apple-system,system-ui,sans-serif;cursor:pointer}
+.ghost{background:none;border:1px solid var(--line);color:var(--ink)}
+.item{display:flex;justify-content:space-between;gap:8px;padding:9px 0;border-top:1px solid var(--line)}
+.item small{color:var(--mute);display:block}
+.x{background:none;border:0;color:var(--mute);font-size:20px;cursor:pointer;padding:0 6px}
+.msg{color:var(--mute);margin:8px 0 0;min-height:20px}
+.tg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}.tg label{font-size:12px;color:var(--mute);display:block}.tg input{width:100%;padding:8px}
+.chip{display:inline-block;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:3px 10px;margin:4px 4px 0 0;font-size:14px}
+.ex h3{margin:0 0 2px;font:700 19px 'Avenir Next Condensed','Arial Narrow',sans-serif}
+.ex .f input{width:50%}
+.last{color:var(--mute);font-size:13px;margin-bottom:6px}
+svg{width:100%;height:110px;display:block}
+.rings{width:132px;height:132px;flex:none}.rings+div .big{font-size:52px}
+input[type=range]{width:100%;padding:0;margin:6px 0 0;background:none;border:0}.sl{margin-top:14px}
+.hrow{display:block}
+@media (prefers-reduced-motion:no-preference){.bar i{transition:width .3s}}
+</style>
+</head>
+<body>
+<main>
+<h1>Fuel &amp; Lift</h1>
+<div class="tabs" role="tablist"><button role="tab" data-t="food" aria-selected="true">Food</button><button role="tab" data-t="gym" aria-selected="false">Workout</button><button role="tab" data-t="wt" aria-selected="false">Weight</button><button role="tab" data-t="stu" aria-selected="false">Study</button><button role="tab" data-t="cab" aria-selected="false">Cab</button><button role="tab" data-t="hs" aria-selected="false">History</button></div>
+<div class="date" id="db"><button id="pv" aria-label="Previous day">&lsaquo;</button><b id="dl"></b><button id="nx" aria-label="Next day">&rsaquo;</button></div>
+<section id="food">
+<div class="card"><div style="display:flex;align-items:center;gap:14px;margin-bottom:12px"><svg class="rings" id="rg" viewBox="0 0 132 132" role="img" aria-label="Daily progress rings"></svg><div><div class="big" id="kc"></div><div class="msg" id="kl" style="margin:2px 0 0"></div></div></div>
+<div class="row"><span>Protein</span><span id="pt"></span></div><div class="bar"><i id="pb" style="background:var(--P)"></i></div>
+<div class="row"><span>Carbs</span><span id="ct"></span></div><div class="bar"><i id="cb" style="background:var(--C)"></i></div>
+<div class="row"><span>Fats</span><span id="ft"></span></div><div class="bar"><i id="fb" style="background:var(--F)"></i></div>
+<div class="row"><span>Water</span><span id="wwt"></span></div><div class="bar"><i id="wwb" style="background:var(--W)"></i></div>
+<div class="f" style="flex-wrap:wrap"><button class="go ghost" data-w="250" type="button">+250 ml</button><button class="go ghost" data-w="500" type="button">+500 ml</button><button class="go ghost" data-w="-250" type="button">&minus;250 ml</button></div></div>
+<div class="card"><form class="f" id="ff"><input type="text" id="fi" placeholder="e.g. 3 eggs, 2 roti, 150g paneer" aria-label="Food" autocomplete="off"><button class="go">Add</button></form>
+<div class="msg" id="fm">Type what you ate, with quantities. Separate items with commas.</div><div id="fa"></div></div>
+<div class="card"><div id="fl"></div></div>
+<div class="card"><b>Daily targets</b><div id="sl"></div></div>
+<details class="card"><summary style="cursor:pointer"><b>My foods</b> <span class="msg" id="fc"></span></summary>
+<div class="msg">These are the foods the app recognises. Edit, delete or add your own. Macros are for one portion; grams per portion is optional and lets you type amounts like 150g.</div>
+<input type="text" id="fs" placeholder="Search foods" aria-label="Search foods" style="width:100%;margin:8px 0">
+<div id="fo"></div>
+<form id="ef" style="margin-top:12px"><b id="eh">Add a food</b>
+<div class="f" style="flex-wrap:wrap;margin-top:8px"><input type="text" id="en" placeholder="Name, e.g. Aloo paratha" style="flex:1 1 100%" aria-label="Food name"><input type="text" id="ea" placeholder="Keywords, comma separated: aloo paratha, paratha" style="flex:1 1 100%" aria-label="Keywords"><input type="number" step="any" id="ek" placeholder="kcal" style="flex:1 1 20%" aria-label="kcal per portion"><input type="number" step="any" id="ep" placeholder="P g" style="flex:1 1 20%" aria-label="Protein per portion"><input type="number" step="any" id="ec" placeholder="C g" style="flex:1 1 20%" aria-label="Carbs per portion"><input type="number" step="any" id="ef2" placeholder="F g" style="flex:1 1 20%" aria-label="Fats per portion"><input type="number" step="any" id="eg" placeholder="Grams per portion (optional)" style="flex:1 1 100%" aria-label="Grams per portion"></div>
+<div class="f" style="margin-top:8px;flex-wrap:wrap"><button class="go">Save food</button><button type="button" class="go ghost" id="ex2">Cancel</button><button type="button" class="go ghost" id="rs">Restore built-in foods</button></div></form></details>
+</section>
+<section id="gym" hidden>
+<div class="card"><div class="f"><select id="ss" aria-label="Session" style="flex:1"><option value="Push">Push</option><option value="Pull">Pull</option><option value="Legs">Legs</option><option value="Cardio">Cardio</option></select><button class="go ghost" id="eb" type="button">Edit exercises</button></div><div class="msg" id="sh"></div></div>
+<div id="ex"></div>
+<div class="card"><b>Steps</b><div class="f" style="margin-top:8px"><input type="number" id="cm" inputmode="numeric" placeholder="Step count today" aria-label="Step count"><button class="go" id="cs">Save</button></div></div>
+</section>
+<section id="wt" hidden>
+<div class="card"><form class="f" id="wf"><input type="number" step="0.1" id="wi" inputmode="decimal" placeholder="Weight in kg" aria-label="Weight in kg"><button class="go">Log weight</button></form><div class="msg" id="wm">Weigh in once a week, same morning, after the toilet.</div></div>
+<div class="card" id="wc"></div>
+</section>
+<section id="stu" hidden>
+<div class="card"><div class="big" id="sb"></div><div class="msg" id="sm" style="margin:2px 0 10px"></div><div class="bar" style="margin-bottom:0"><i id="sp" style="background:var(--S)"></i></div><div id="sw" style="display:flex;gap:6px;align-items:flex-end;height:70px;margin-top:14px"></div><div class="msg" id="sx"></div></div>
+<div class="card"><form id="sf"><select id="sj" aria-label="Subject" style="width:100%"><option>Physics</option><option>Chemistry</option><option>Math</option></select><input type="text" id="sc" placeholder="Chapter name (optional)" aria-label="Chapter name" style="width:100%;margin-top:8px" autocomplete="off"><div class="f" style="margin-top:8px"><input type="number" step="any" id="sh2" inputmode="decimal" min="0" placeholder="Hours" aria-label="Hours"><input type="number" id="sn" inputmode="numeric" min="0" max="59" placeholder="Min" aria-label="Minutes"><button class="go">Add</button></div></form><div class="msg" id="se"></div><div id="sl2"></div></div>
+<div class="card"><div class="row"><span>Daily study target</span><span><b id="stv" style="color:var(--ink)"></b> h</span></div><input type="range" id="stt" min="1" max="12" step="0.5" style="accent-color:var(--S)" aria-label="Daily study target in hours"></div>
+</section>
+<section id="cab" hidden>
+<div class="card"><div class="big" id="cxt"></div><div class="msg" id="cxs" style="margin:2px 0 0"></div></div>
+<div class="card"><form class="f" id="cxf" style="flex-wrap:wrap"><input type="number" step="any" inputmode="decimal" id="cxa" placeholder="Amount (₹)" aria-label="Amount in rupees" style="flex:1 1 35%"><input type="text" id="cxn" placeholder="Note (optional), e.g. to coaching" aria-label="Note" style="flex:2 1 50%" autocomplete="off"><button class="go">Add</button></form><div class="msg" id="cxe"></div><div id="cxl"></div></div>
+</section>
+<section id="hs" hidden><div class="card"><label for="hd" style="display:block;margin-bottom:6px"><b>Jump to a date</b></label><input type="date" id="hd" style="width:100%"></div><div class="card"><b>Backup</b><div class="msg" id="bm" style="margin-bottom:8px"></div><div class="f" style="flex-wrap:wrap"><button class="go" id="be">Export backup</button><button class="go ghost" id="bi">Import backup</button><input type="file" id="bf" accept=".json,application/json" hidden></div></div><div class="card"><b>Copy your data as text</b><div class="msg" id="xm" style="margin-bottom:8px">Pick a period, create the text, then copy it into Notes or an email.</div>
+<div class="f" style="flex-wrap:wrap"><input type="date" id="xf1" aria-label="From date" style="flex:1 1 40%"><input type="date" id="xf2" aria-label="To date" style="flex:1 1 40%"></div>
+<div class="f" style="margin-top:8px;flex-wrap:wrap"><button class="go ghost" data-p="7" type="button">Last 7 days</button><button class="go ghost" data-p="30" type="button">Last 30 days</button><button class="go ghost" data-p="0" type="button">All</button></div>
+<select id="xfm" aria-label="Format" style="width:100%;margin-top:8px"><option value="r">Readable summary (uses the period above)</option><option value="b">Full backup code (everything, can be restored)</option></select>
+<div class="f" style="margin-top:8px"><button class="go" id="xg" type="button">Create text</button><button class="go ghost" id="xc" type="button">Copy</button></div>
+<textarea id="xo" readonly rows="8" style="width:100%;margin-top:8px;font:13px/1.4 ui-monospace,Menlo,monospace;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)" aria-label="Exported text"></textarea><div class="msg" id="xl"></div></div>
+<div class="card"><b>Restore from a backup code</b><div class="msg">Paste a full backup code below. This replaces everything in the app.</div><textarea id="xi" rows="4" placeholder="Paste backup code here" style="width:100%;margin-top:8px;font:13px/1.4 ui-monospace,Menlo,monospace;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink)" aria-label="Backup code"></textarea><div class="f" style="margin-top:8px"><button class="go" id="xr" type="button">Restore</button></div><div class="msg" id="xrm"></div></div>
+<div id="hl"></div></section>
+</main>
+<script>
+const DEF={Push:["Dumbbell bench press","Incline push-ups","Dumbbell shoulder press","Lateral raises","Tricep pushdowns"],Pull:["Lat pulldown","Seated cable row","Inverted rows","Dead hang (seconds in reps)","Bicep curls"],Legs:["Goblet squat","Romanian deadlift (light)","Walking lunges","Leg press","Hanging knee raises"]};
+const DAYS=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+const WK={1:"Push",3:"Pull",6:"Legs"};
+const DB=[
+["Egg","egg,eggs,anda",78,6.3,.6,5.3,50],["Roti","roti,rotis,chapati,chapatti,phulka",100,3,18,2,40],["Rice (cooked)","rice,chawal",200,4,44,.5,150],["Dal (cooked, cup)","dal,daal",180,10,28,3,200],
+["Paneer","paneer",265,18,1.2,20,100],["Curd (cup)","curd,dahi,yogurt,yoghurt",120,7,9,6,200],["Milk (glass)","milk,doodh",145,7.5,12,7.5,250],["Banana","banana,kela",105,1.3,27,.4,120],
+["Chicken breast (cooked)","chicken",165,31,0,3.6,100],["Soya chunks (dry)","soya,soy chunks,nutrela",172,26,16,.3,50],["Roasted chana","chana,roasted chana",108,6,18,1.5,30],["Peanuts","peanut,peanuts,moongfali",170,7.5,5,14,30],
+["Rajma (cooked, cup)","rajma",225,15,40,1,200],["Sabzi (cup)","sabzi,veg,vegetables",100,3,10,5,150],["Apple","apple,seb",95,.5,25,.3,180],["Whey (scoop)","whey,protein powder,scoop",120,24,3,1.5,30],
+["Oats (dry)","oats",150,5,27,3,40],["Bread slice","bread",80,3,14,1,30],["Poha (cup)","poha",250,5,40,7,150],["Idli","idli",60,2,12,.3,40],["Dosa (plain)","dosa",130,3,22,3,80],
+["Samosa","samosa",260,4,24,17,60],["Cold drink (can)","cold drink,coke,pepsi,soda",140,0,35,0,330],["Chai (cup, sugar)","chai,tea",90,2,14,3,150]];
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let S={tg:{k:2250,p:115,c:290,f:70,w:3000},food:{},gym:{},cardio:{},steps:{},run:{},water:{},study:{},cab:{},wt:[]};
+try{const r=localStorage.getItem("fuellift1");if(r)S=Object.assign(S,JSON.parse(r))}catch(e){}
+if(!S.items)S.items=DB.map(d=>d.slice());
+if(!S.plan)S.plan=JSON.parse(JSON.stringify(DEF));
+if(!S.steps)S.steps={};
+if(!S.run)S.run={};
+if(!S.water)S.water={};
+if(!S.study)S.study={};
+if(!S.cab)S.cab={};
+Object.values(S.study).forEach(a=>a.forEach(x=>{if(x.s==="Maths")x.s="Math"}));
+const save=()=>{try{localStorage.setItem("fuellift1",JSON.stringify(S))}catch(e){}};
+const iso=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+let cur=new Date(),tab="food";
+const key=()=>iso(cur);
+const r1=n=>Math.round(n*10)/10;
+const sum=L=>L.reduce((a,x)=>({k:a.k+x.k,p:a.p+x.p,c:a.c+x.c,f:a.f+x.f}),{k:0,p:0,c:0,f:0});
+function rings(T,g){const R=[["k",58,"--ok"],["p",48,"--P"],["c",38,"--C"],["f",28,"--F"],["w",18,"--W"]];
+ $("rg").innerHTML=R.map(([a,r,c])=>{const p=g[a]?Math.min(1,T[a]/g[a])*100:0;return '<circle cx="66" cy="66" r="'+r+'" fill="none" stroke="var(--line)" stroke-width="7"/>'+(p>0.5?'<circle cx="66" cy="66" r="'+r+'" fill="none" stroke="var('+c+')" stroke-width="7" stroke-linecap="round" pathLength="100" stroke-dasharray="'+p+' 100" transform="rotate(-90 66 66)"/>':'')}).join("")}
+function hist(){
+ const ds=new Set([...Object.keys(S.food).filter(d=>(S.food[d]||[]).length),...Object.keys(S.gym).filter(d=>Object.values(S.gym[d]||{}).some(a=>a.length)),...Object.keys(S.steps).filter(d=>S.steps[d]),...Object.keys(S.water).filter(d=>S.water[d]),...Object.keys(S.study).filter(d=>(S.study[d]||[]).length),...Object.keys(S.cab).filter(d=>(S.cab[d]||[]).length),...Object.keys(S.run).filter(d=>S.run[d]&&(S.run[d].km||S.run[d].min)),...S.wt.map(x=>x.d)]);
+ const L=[...ds].sort().reverse();
+ $("hl").innerHTML=L.length?L.map(d=>{const T=sum(S.food[d]||[]),sets=Object.values(S.gym[d]||{}).reduce((n,a)=>n+a.length,0),w=S.wt.find(x=>x.d===d),dt=new Date(d+"T00:00:00");
+  return '<button class="card hrow" data-d="'+d+'" style="width:100%;text-align:left;cursor:pointer;color:inherit;font:inherit"><div class="row"><b>'+DAYS[dt.getDay()]+', '+dt.toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"})+'</b><span>'+Math.round(T.k)+' kcal</span></div><div class="last" style="margin:4px 0 0">P '+Math.round(T.p)+' g &middot; C '+Math.round(T.c)+' g &middot; F '+Math.round(T.f)+' g'+(sets?' &middot; '+sets+' sets':'')+(S.steps[d]?' &middot; '+Number(S.steps[d]).toLocaleString('en-IN')+' steps':'')+((S.cab[d]||[]).length?' &middot; '+inr(cabT(d))+' cab':'')+((S.study[d]||[]).length?' &middot; '+hm(S.study[d].reduce((a,x)=>a+x.m,0))+' study':'')+(S.water[d]?' &middot; '+r1(S.water[d]/1000)+' L water':'')+(S.run[d]&&S.run[d].km?' &middot; '+S.run[d].km+' km'+(S.run[d].min?' in '+S.run[d].min+' min':''):'')+(w?' &middot; '+w.kg+' kg':'')+'</div></button>'}).join(""):'<div class="msg">No history yet. Log food or a workout and it shows up here.</div>'}
+function dl(){const t=iso(new Date());$("dl").textContent=(key()===t?"Today":DAYS[cur.getDay()])+", "+cur.toLocaleDateString("en-IN",{day:"numeric",month:"short"})}
+function food(){
+ const L=S.food[key()]||[],T=L.reduce((a,x)=>({k:a.k+x.k,p:a.p+x.p,c:a.c+x.c,f:a.f+x.f}),{k:0,p:0,c:0,f:0}),g=S.tg;
+ const left=g.k-T.k;$("kc").innerHTML=Math.round(Math.abs(left))+"<small>kcal "+(left>=0?"left":"over")+"</small>";
+ $("kl").textContent=Math.round(T.k)+" of "+g.k+" kcal eaten";
+ [["p","P"],["c","C"],["f","F"]].forEach(([a,b])=>{$(a+"t").textContent=Math.round(T[a])+" / "+g[a]+" g";$(a+"b").style.width=Math.min(100,g[a]?T[a]/g[a]*100:0)+"%"});
+ $("fl").innerHTML=L.length?L.map((x,i)=>'<div class="item"><div>'+esc(x.n)+'<small>'+Math.round(x.k)+' kcal &middot; P '+r1(x.p)+' &middot; C '+r1(x.c)+' &middot; F '+r1(x.f)+'</small></div><button class="x" data-i="'+i+'" aria-label="Remove '+esc(x.n)+'">&times;</button></div>').join(""):'<div class="msg">Nothing logged yet. Add your first meal above.</div>';
+ T.w=S.water[key()]||0;if(!g.w)g.w=3000;rings(T,g);$("wwt").textContent=r1(T.w/1000)+" / "+r1(g.w/1000)+" L";$("wwb").style.width=Math.min(100,T.w/g.w*100)+"%";["k","p","c","f","w"].forEach(a=>{$("t"+a).value=g[a];$("v"+a).textContent=a==="w"?r1(g[a]/1000):g[a]});
+}
+function parse(t){
+ const s=t.toLowerCase(),m=s.match(/(\d+(?:\.\d+)?)\s*(g|gm|gms|grams|ml)?\b/);
+ let it=null,bl=0;S.items.forEach(d=>d[1].split(",").forEach(a=>{a=a.trim().toLowerCase();if(a.length>bl&&new RegExp("\\b"+a.replace(/[.*+?^${}()|[\\]\\\\]/g,"\\\\$&")+"\\b").test(s)){it=d;bl=a.length}}));
+ if(!it)return null;
+ let q=1;if(m){q=parseFloat(m[1]);if(m[2]){if(!it[6])return null;q=q/it[6]}}
+ const lab=m?m[0].trim()+" ":"";
+ return{n:(m&&m[2]?lab:(m?m[1]+" × ":""))+it[0],k:it[2]*q,p:it[3]*q,c:it[4]*q,f:it[5]*q};
+}
+async function ask(){return null}
+$("ff").onsubmit=async e=>{e.preventDefault();
+ const v=$("fi").value.trim();if(!v)return;
+ const parts=v.split(/,|\band\b|\+/).map(x=>x.trim()).filter(Boolean),L=S.food[key()]=S.food[key()]||[],miss=[];
+ $("fm").textContent="Adding…";
+ for(const p of parts){let r=parse(p);if(!r)r=await ask(p);if(r)L.push(r);else miss.push(p)}
+ save();food();$("fi").value=miss.join(", ");
+ $("fm").textContent=miss.length?"Couldn't work out: "+miss.join(", ")+". Add it with calories and macros below.":"Added.";
+ $("fa").innerHTML=miss.length?'<form class="f" id="mf" style="flex-wrap:wrap;margin-top:8px"><input type="text" id="mn" value="'+esc(miss[0])+'" style="flex:1 1 100%" aria-label="Food name"><input type="number" id="mk" placeholder="kcal" style="width:22%" aria-label="kcal"><input type="number" id="mp" placeholder="P g" style="width:22%" aria-label="Protein g"><input type="number" id="mc" placeholder="C g" style="width:22%" aria-label="Carbs g"><input type="number" id="mf2" placeholder="F g" style="width:22%" aria-label="Fats g"><label style="flex:1 1 100%;font-size:14px"><input type="checkbox" id="mr" checked> Remember as one portion in My foods</label><button class="go">Add item</button></form>':"";
+ const mf=$("mf");if(mf)mf.onsubmit=ev=>{ev.preventDefault();const o={n:$("mn").value,k:+$("mk").value||0,p:+$("mp").value||0,c:+$("mc").value||0,f:+$("mf2").value||0};S.food[key()].push(o);const nm=o.n.trim().replace(/^[\d.]+\s*(g|gm|gms|grams|ml)?\s+/i,"");if($("mr").checked&&nm){S.items.push([nm,nm.toLowerCase(),o.k,o.p,o.c,o.f,0]);items()}save();$("fa").innerHTML="";$("fi").value=miss.slice(1).join(", ");$("fm").textContent="Added.";food()};
+};
+$("fl").onclick=e=>{const i=e.target.dataset.i;if(i===undefined)return;S.food[key()].splice(i,1);save();food()};
+const SL=[["k","Calories","kcal",1200,3500,50,"--ok"],["p","Protein","g",50,220,5,"--P"],["c","Carbs","g",80,450,5,"--C"],["f","Fats","g",30,130,5,"--F"],["w","Water","L",1000,5000,250,"--W"]];
+$("sl").innerHTML=SL.map(([a,n,u,mn,mx,st,c])=>'<div class="sl"><div class="row"><span>'+n+'</span><span><b id="v'+a+'" style="color:var(--ink)"></b> '+u+'</span></div><input type="range" id="t'+a+'" min="'+mn+'" max="'+mx+'" step="'+st+'" style="accent-color:var('+c+')" aria-label="'+n+' target"></div>').join("");
+SL.forEach(([a])=>$("t"+a).oninput=e=>{S.tg[a]=+e.target.value;save();food()});
+document.querySelectorAll("[data-w]").forEach(b=>b.onclick=()=>{const k=key();S.water[k]=Math.max(0,(S.water[k]||0)+(+b.dataset.w));save();food()});
+const hm=m=>{m=Math.round(m);const h=Math.floor(m/60),r=m%60;return h?(r?h+" h "+r+" m":h+" h"):r+" m"};
+function study(){
+ const k=key(),L=S.study[k]||[],tot=L.reduce((a,x)=>a+x.m,0),tg=(S.tg.s=S.tg.s||6)*60;
+ $("sb").innerHTML=hm(tot)+"<small>today</small>";
+ $("sm").textContent=tot>=tg?"Target reached ("+r1(tg/60)+" h)":hm(tg-tot)+" to go of "+r1(tg/60)+" h";
+ $("sp").style.width=Math.min(100,tot/tg*100)+"%";
+ const days=[];for(let i=6;i>=0;i--){const t=new Date(cur);t.setDate(t.getDate()-i);days.push(iso(t))}
+ const tm=days.map(d=>(S.study[d]||[]).reduce((a,x)=>a+x.m,0)),mx=Math.max(tg,...tm,1),by={};
+ days.forEach(d=>(S.study[d]||[]).forEach(x=>by[x.s]=(by[x.s]||0)+x.m));
+ $("sw").innerHTML=days.map((d,i)=>'<div style="flex:1;text-align:center"><div style="height:'+Math.round(tm[i]/mx*50)+'px;min-height:2px;background:'+(d===k?'var(--S)':'var(--line)')+';border-radius:4px"></div><div class="last" style="margin:3px 0 0">'+DAYS[new Date(d+"T00:00:00").getDay()][0]+'</div></div>').join("");
+ const ent=Object.entries(by).sort((a,b)=>b[1]-a[1]);
+ $("sx").textContent="Last 7 days: "+hm(tm.reduce((a,b)=>a+b,0))+(ent.length?" ("+ent.map(([s,m])=>s+" "+hm(m)).join(", ")+")":"");
+ $("sl2").innerHTML=L.length?L.map((x,i)=>'<div class="item"><div>'+esc(x.s)+(x.c?' &middot; '+esc(x.c):'')+'<small>'+hm(x.m)+'</small></div><button class="x" data-sd="'+i+'" aria-label="Remove '+esc(x.s)+' entry">&times;</button></div>').join(""):'<div class="msg">Nothing logged for this day yet.</div>';
+ $("stt").value=S.tg.s;$("stv").textContent=S.tg.s}
+$("sf").onsubmit=e=>{e.preventDefault();const s=$("sj").value.trim()||"Study",c=$("sc").value.trim(),m=(+$("sh2").value||0)*60+(+$("sn").value||0);if(m<=0){$("se").textContent="Enter some time.";return}
+ $("se").textContent="";(S.study[key()]=S.study[key()]||[]).push({s,m,c});save();$("sh2").value="";$("sn").value="";study()};
+$("sl2").onclick=e=>{const i=e.target.dataset.sd;if(i===undefined)return;S.study[key()].splice(+i,1);save();study()};
+$("stt").oninput=e=>{S.tg.s=+e.target.value;save();study()};
+const inr=n=>"₹"+Number(Math.round(n*100)/100).toLocaleString("en-IN");
+const cabT=d=>(S.cab[d]||[]).reduce((a,x)=>a+x.a,0);
+function cab(){const k=key(),L=S.cab[k]||[];
+ $("cxt").innerHTML=inr(cabT(k))+"<small>"+(k===iso(new Date())?"today":"this day")+"</small>";
+ let wk=0;for(let i=0;i<7;i++){const t=new Date(cur);t.setDate(t.getDate()-i);wk+=cabT(iso(t))}
+ let mo=0;Object.keys(S.cab).forEach(d=>{if(d.slice(0,7)===k.slice(0,7))mo+=cabT(d)});
+ $("cxs").textContent="Last 7 days: "+inr(wk)+" · This month: "+inr(mo);
+ $("cxl").innerHTML=L.length?L.map((x,i)=>'<div class="item"><div>'+inr(x.a)+(x.n?'<small>'+esc(x.n)+'</small>':'')+'</div><button class="x" data-cd="'+i+'" aria-label="Remove expense">&times;</button></div>').join(""):'<div class="msg">No cab expenses for this day.</div>'}
+$("cxf").onsubmit=e=>{e.preventDefault();const a=+$("cxa").value;if(!(a>0)){$("cxe").textContent="Enter an amount.";return}
+ $("cxe").textContent="";(S.cab[key()]=S.cab[key()]||[]).push({a,n:$("cxn").value.trim()});save();$("cxa").value="";$("cxn").value="";cab()};
+$("cxl").onclick=e=>{const i=e.target.dataset.cd;if(i===undefined)return;S.cab[key()].splice(+i,1);save();cab()};
+$("hl").onclick=e=>{const b=e.target.closest("[data-d]");if(!b)return;cur=new Date(b.dataset.d+"T00:00:00");show("food")};
+$("hd").onchange=e=>{if(e.target.value){cur=new Date(e.target.value+"T00:00:00");show("food")}};
+let em=false;
+function sess(){const v=$("ss").value,cd=v==="Cardio",L=cd?[]:S.plan[v];
+ $("eb").hidden=cd;if(cd)em=false;$("eb").textContent=em?"Done":"Edit exercises";
+ $("sh").textContent=cd?"Cardio day. Log your run below, plus your steps.":em?"Rename, remove or add exercises. Changes save automatically.":"Aim for 3 sets of 8–12. Add weight once every set hits the top of the range.";
+ const G=(S.gym[key()]=S.gym[key()]||{});
+ if(cd){const R=S.run[key()]||{};$("ex").innerHTML='<div class="card"><b>Run / cardio</b><div class="f" style="margin-top:8px"><input type="number" step="any" inputmode="decimal" id="rk" placeholder="Distance (km)" aria-label="Distance in km" value="'+(R.km||"")+'"><input type="number" step="any" inputmode="decimal" id="rt" placeholder="Time (min)" aria-label="Time in minutes" value="'+(R.min||"")+'"></div><div class="f" style="margin-top:8px;align-items:center"><button class="go" id="rsv">Save</button><span class="msg" id="rp" style="margin:0"></span></div></div>';pace()}
+ else if(em)$("ex").innerHTML='<div class="card">'+L.map((n,i)=>'<div class="f" style="margin-bottom:8px"><input type="text" value="'+esc(n)+'" data-ix="'+i+'" aria-label="Exercise name"><button class="x" data-rm="'+i+'" aria-label="Remove '+esc(n)+'">&times;</button></div>').join("")+'<div class="f"><input type="text" id="an" placeholder="New exercise name" aria-label="New exercise name"><button class="go" id="ab">Add</button></div></div>';
+ else $("ex").innerHTML=L.length?L.map((n,i)=>{
+  const sets=G[n]||[];let last="";
+  const ds=Object.keys(S.gym).filter(d=>d<key()&&S.gym[d][n]&&S.gym[d][n].length).sort().pop();
+  if(ds)last="Last time: "+S.gym[ds][n].map(s=>s.w+"kg × "+s.r).join(", ");
+  return '<div class="card ex"><h3>'+esc(n)+'</h3><div class="last">'+(last||"No previous log")+'</div><div>'+sets.map((s,j)=>'<span class="chip">'+s.w+' kg × '+s.r+' <button class="x" style="font-size:15px" data-n="'+i+'" data-j="'+j+'" aria-label="Remove set">&times;</button></span>').join("")+'</div><div class="f" style="margin-top:8px"><input type="number" step="0.5" inputmode="decimal" id="w'+i+'" placeholder="kg" aria-label="Weight kg"><input type="number" inputmode="numeric" id="r'+i+'" placeholder="reps" aria-label="Reps"><button class="go" data-a="'+i+'">Add set</button></div></div>'}).join(""):'<div class="card msg">No exercises yet. Tap Edit exercises to add some.</div>';
+ $("cm").value=S.steps[key()]||"";
+}
+$("ex").onclick=e=>{const v=$("ss").value,t=e.target,L=S.plan[v]||[],G=S.gym[key()];
+ if(t.dataset.a!==undefined){const i=t.dataset.a,n=L[i],r=+$("r"+i).value;if(!r)return;(G[n]=G[n]||[]).push({w:+$("w"+i).value||0,r});save();sess()}
+ else if(t.dataset.j!==undefined){G[L[t.dataset.n]].splice(t.dataset.j,1);save();sess()}
+ else if(t.dataset.rm!==undefined){L.splice(+t.dataset.rm,1);save();sess()}
+ else if(t.id==="ab"){const n=$("an").value.trim();if(!n)return;L.push(n);save();sess();$("an").focus()}
+ else if(t.id==="rsv"){S.run[key()]={km:+$("rk").value||0,min:+$("rt").value||0};save();t.textContent="Saved";setTimeout(()=>{const b=$("rsv");if(b)b.textContent="Save"},1200)}};
+$("ex").oninput=e=>{if(e.target.id==="rk"||e.target.id==="rt")pace()};
+$("ex").onchange=e=>{const t=e.target;if(t.dataset.ix===undefined)return;const L=S.plan[$("ss").value],i=+t.dataset.ix,old=L[i],nw=t.value.trim();
+ if(!nw){t.value=old;return}if(nw===old)return;
+ L[i]=nw;Object.keys(S.gym).forEach(d=>{const g=S.gym[d];if(g[old]&&!g[nw]){g[nw]=g[old];delete g[old]}});save()};
+$("ex").onkeydown=e=>{if(e.key==="Enter"&&e.target.id==="an"){e.preventDefault();$("ab").click()}};
+$("eb").onclick=()=>{em=!em;sess()};
+$("ss").onchange=()=>{em=false;sess()};
+$("cs").onclick=()=>{S.steps[key()]=+$("cm").value||0;save();$("cs").textContent="Saved";setTimeout(()=>$("cs").textContent="Save",1200)};
+function pace(){const k=+$("rk").value,t=+$("rt").value;if(!(k>0&&t>0)){$("rp").textContent="";return}const pm=t/k,m=Math.floor(pm),sc=Math.round((pm-m)*60);$("rp").textContent=(sc===60?(m+1)+":00":m+":"+String(sc).padStart(2,"0"))+" min/km · "+r1(k/t*60)+" km/h"}
+function gym(){$("ss").value=WK[cur.getDay()]||"Cardio";em=false;sess()}
+function wt(){const W=S.wt.slice().sort((a,b)=>a.d<b.d?-1:1);
+ let h="";
+ if(W.length>1){const mn=Math.min(...W.map(x=>x.kg))-1,mx=Math.max(...W.map(x=>x.kg))+1,p=W.map((x,i)=>(i/(W.length-1)*296+2)+","+(104-(x.kg-mn)/(mx-mn)*98)).join(" ");h+='<svg viewBox="0 0 300 110" role="img" aria-label="Weight trend"><polyline points="'+p+'" fill="none" stroke="var(--P)" stroke-width="3" stroke-linejoin="round"/></svg>'}
+ h+=W.length?W.slice().reverse().map((x,i,a)=>{const pr=a[i+1],df=pr?x.kg-pr.kg:null;return '<div class="item"><div>'+x.kg+' kg<small>'+x.d+(df!==null?' &middot; '+(df>0?"+":"")+r1(df)+' kg vs previous':"")+'</small></div><button class="x" data-d="'+x.d+'" aria-label="Remove entry">&times;</button></div>'}).join(""):'<div class="msg">No weigh-ins yet. Log your starting weight.</div>';
+ $("wc").innerHTML=h}
+$("wf").onsubmit=e=>{e.preventDefault();const v=parseFloat($("wi").value);if(!(v>20&&v<250)){$("wm").textContent="Enter a weight between 20 and 250 kg.";return}
+ S.wt=S.wt.filter(x=>x.d!==key());S.wt.push({d:key(),kg:v});save();$("wi").value="";$("wm").textContent="Logged for "+key()+".";wt()};
+$("wc").onclick=e=>{const d=e.target.dataset.d;if(!d)return;S.wt=S.wt.filter(x=>x.d!==d);save();wt()};
+function show(t){tab=t;document.querySelectorAll(".tabs button").forEach(b=>b.setAttribute("aria-selected",b.dataset.t===t));["food","gym","wt","stu","cab","hs"].forEach(s=>$(s).hidden=s!==t);$("db").hidden=t==="hs";dl();if(t==="food")food();if(t==="gym")gym();if(t==="wt")wt();if(t==="hs")hist();if(t==="stu")study();if(t==="cab")cab()}
+document.querySelector(".tabs").onclick=e=>{if(e.target.dataset.t)show(e.target.dataset.t)};
+$("pv").onclick=()=>{cur.setDate(cur.getDate()-1);show(tab)};
+$("nx").onclick=()=>{cur.setDate(cur.getDate()+1);show(tab)};
+let ed=-1;
+function items(){const q=$("fs").value.trim().toLowerCase();$("fc").textContent="("+S.items.length+")";
+ const h=S.items.map((d,i)=>[d,i]).filter(o=>!q||(o[0][0]+" "+o[0][1]).toLowerCase().includes(q)).map(([d,i])=>'<div class="item"><div>'+esc(d[0])+'<small>'+Math.round(d[2])+' kcal &middot; P '+d[3]+' &middot; C '+d[4]+' &middot; F '+d[5]+(d[6]?' &middot; '+d[6]+' g':'')+'</small></div><div style="white-space:nowrap"><button class="x" data-e="'+i+'" aria-label="Edit '+esc(d[0])+'">&#9998;</button><button class="x" data-r="'+i+'" aria-label="Delete '+esc(d[0])+'">&times;</button></div></div>').join("");
+ $("fo").innerHTML=h||'<div class="msg">No foods match.</div>'}
+function clr(){ed=-1;$("ef").reset();$("eh").textContent="Add a food"}
+$("fs").oninput=items;
+$("fo").onclick=e=>{const t=e.target;if(t.dataset.e!==undefined){ed=+t.dataset.e;const d=S.items[ed];$("en").value=d[0];$("ea").value=d[1];$("ek").value=d[2];$("ep").value=d[3];$("ec").value=d[4];$("ef2").value=d[5];$("eg").value=d[6]||"";$("eh").textContent="Edit "+d[0];$("en").focus()}else if(t.dataset.r!==undefined){S.items.splice(+t.dataset.r,1);if(ed>=0)clr();save();items()}};
+$("ef").onsubmit=e=>{e.preventDefault();const n=$("en").value.trim();if(!n)return;const d=[n,$("ea").value.trim()||n.toLowerCase(),+$("ek").value||0,+$("ep").value||0,+$("ec").value||0,+$("ef2").value||0,+$("eg").value||0];if(ed>=0)S.items[ed]=d;else S.items.push(d);save();clr();items()};
+$("ex2").onclick=clr;
+$("rs").onclick=()=>{const have=S.items.map(d=>d[0]);DB.forEach(d=>{if(!have.includes(d[0]))S.items.push(d.slice())});save();items()};
+items();
+
+function bmsg(){$("bm").textContent=S.bk?"Last backup: "+new Date(S.bk).toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"})+". Back up now and then; your data lives only on this phone.":"No backup yet. Your data lives only on this phone, so export one now and then."}
+$("be").onclick=async()=>{
+ const d=Object.assign({},S);delete d.bk;
+ const txt=JSON.stringify({app:"fuel-and-lift",v:1,at:new Date().toISOString(),data:d}),name="fuel-and-lift-backup-"+iso(new Date())+".json";
+ let done=false;
+ try{const f=new File([txt],name,{type:"application/json"});if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f]});done=true}}catch(e){if(e&&e.name==="AbortError")return}
+ if(!done){const u=URL.createObjectURL(new Blob([txt],{type:"application/json"})),a=document.createElement("a");a.href=u;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000)}
+ S.bk=new Date().toISOString();save();bmsg()};
+$("bi").onclick=()=>$("bf").click();
+$("bf").onchange=async e=>{const f=e.target.files[0];e.target.value="";if(!f)return;
+ try{const j=JSON.parse(await f.text());if(j.app!=="fuel-and-lift"||!j.data||typeof j.data.food!=="object")throw 0;
+  if(!confirm("Replace everything in this app with the backup from "+(j.at||"").slice(0,10)+"?"))return;
+  S=Object.assign({tg:{k:2250,p:115,c:290,f:70,w:3000},food:{},gym:{},cardio:{},steps:{},run:{},water:{},study:{},cab:{},wt:[]},j.data);if(!S.items)S.items=DB.map(d=>d.slice());if(!S.plan)S.plan=JSON.parse(JSON.stringify(DEF));
+  save();items();show("hs");$("bm").textContent="Backup restored."}
+ catch(err){$("bm").textContent="That file isn't a Fuel & Lift backup."}};
+bmsg();
+try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
+if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("sw.js").catch(()=>{}));
+const D2=s=>new Date(s+"T00:00:00");
+function allDays(){return [...new Set([...Object.keys(S.food).filter(d=>(S.food[d]||[]).length),...Object.keys(S.gym).filter(d=>Object.values(S.gym[d]||{}).some(a=>a.length)),...Object.keys(S.steps).filter(d=>S.steps[d]),...Object.keys(S.water).filter(d=>S.water[d]),...Object.keys(S.study).filter(d=>(S.study[d]||[]).length),...Object.keys(S.cab).filter(d=>(S.cab[d]||[]).length),...Object.keys(S.run).filter(d=>S.run[d]&&(S.run[d].km||S.run[d].min)),...S.wt.map(x=>x.d)])].sort()}
+function report(a,b){
+ const days=allDays().filter(d=>d>=a&&d<=b),g=S.tg;
+ const fmt=d=>{const t=D2(d);return DAYS[t.getDay()]+" "+t.toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"})};
+ let o="FUEL & LIFT: "+fmt(a)+" to "+fmt(b)+"\nTargets: "+g.k+" kcal, P "+g.p+" g, C "+g.c+" g, F "+g.f+" g\n";
+ if(!days.length)return o+"\nNo entries in this period.";
+ let fk=0,fp=0,fc=0,ff=0,fd=0,st=0,sd=0,km=0,wl=0,wd=0,sm=0,sdd=0,cb2=0,cbd=0;
+ days.forEach(d=>{o+="\n"+fmt(d)+"\n";
+  const F=S.food[d]||[];
+  if(F.length){const T=sum(F);fk+=T.k;fp+=T.p;fc+=T.c;ff+=T.f;fd++;
+   F.forEach(x=>{o+="- "+x.n+": "+Math.round(x.k)+" kcal, P "+r1(x.p)+", C "+r1(x.c)+", F "+r1(x.f)+"\n"});
+   o+="Total: "+Math.round(T.k)+" kcal, P "+Math.round(T.p)+" g, C "+Math.round(T.c)+" g, F "+Math.round(T.f)+" g\n"}
+  const G=S.gym[d]||{},ex=Object.keys(G).filter(n=>G[n].length);
+  if(ex.length){o+="Workout:\n";ex.forEach(n=>{o+="- "+n+": "+G[n].map(s=>s.w+" kg x "+s.r).join(", ")+"\n"})}
+  const R=S.run[d];if(R&&(R.km||R.min)){o+="Run: "+(R.km?R.km+" km":"")+(R.km&&R.min?" in ":"")+(R.min?R.min+" min":"")+"\n";km+=R.km||0}
+  if(S.steps[d]){o+="Steps: "+Number(S.steps[d]).toLocaleString("en-IN")+"\n";st+=+S.steps[d];sd++}
+  const CB=S.cab[d]||[];if(CB.length){o+="Cab: "+inr(cabT(d))+(CB.some(x=>x.n)?" ("+CB.map(x=>inr(x.a)+(x.n?" "+x.n:"")).join(", ")+")":"")+"\n";cb2+=cabT(d);cbd++}
+  const SL2=S.study[d]||[];if(SL2.length){const tm=SL2.reduce((a,x)=>a+x.m,0),bs={};SL2.forEach(x=>bs[x.s]=(bs[x.s]||0)+x.m);o+="Study: "+hm(tm)+"\n";SL2.forEach(x=>{o+="- "+x.s+(x.c?" ("+x.c+")":"")+": "+hm(x.m)+"\n"});sm+=tm;sdd++}
+  if(S.water[d]){o+="Water: "+r1(S.water[d]/1000)+" L\n";wl+=S.water[d];wd++}
+  const w=S.wt.find(x=>x.d===d);if(w)o+="Weight: "+w.kg+" kg\n"});
+ o+="\nSUMMARY\nDays with food logged: "+fd+(fd?" (average "+Math.round(fk/fd)+" kcal, P "+Math.round(fp/fd)+" g, C "+Math.round(fc/fd)+" g, F "+Math.round(ff/fd)+" g)":"")+"\n";
+ if(sd)o+="Steps: average "+Math.round(st/sd).toLocaleString("en-IN")+" per day over "+sd+(sd===1?" day":" days")+"\n";
+ if(cbd)o+="Cab: "+inr(cb2)+" total over "+cbd+(cbd===1?" day":" days")+"\n";
+ if(sdd)o+="Study: "+hm(sm)+" total, average "+hm(sm/sdd)+" per day over "+sdd+(sdd===1?" day":" days")+"\n";
+ if(wd)o+="Water: average "+r1(wl/wd/1000)+" L per day over "+wd+(wd===1?" day":" days")+"\n";
+ if(km)o+="Total run distance: "+r1(km)+" km\n";
+ const W=S.wt.filter(x=>x.d>=a&&x.d<=b).sort((x,y)=>x.d<y.d?-1:1);
+ if(W.length>1){const df=W[W.length-1].kg-W[0].kg;o+="Weight: "+W[0].kg+" kg to "+W[W.length-1].kg+" kg ("+(df>0?"+":"")+r1(df)+" kg)\n"}
+ return o}
+function code(){const d=Object.assign({},S);delete d.bk;const u=new TextEncoder().encode(JSON.stringify(d));let b="";u.forEach(c=>b+=String.fromCharCode(c));return "FUELLIFT-BACKUP-1:"+btoa(b)}
+function lastb(){$("xl").textContent=S.bk?"Last full backup copied: "+new Date(S.bk).toLocaleDateString("en-IN",{day:"numeric",month:"short",year:"numeric"})+".":"No full backup copied yet. Your data lives only on this phone, so do one now and then."}
+const setP=p=>{const e=new Date(),s=new Date();if(p>0)s.setDate(s.getDate()-(p-1));else{const A=allDays();if(A.length)s.setTime(D2(A[0]).getTime())}$("xf1").value=iso(s);$("xf2").value=iso(e)};
+document.querySelectorAll("[data-p]").forEach(b=>b.onclick=()=>setP(+b.dataset.p));
+setP(7);lastb();
+$("xg").onclick=()=>{const a=$("xf1").value,b=$("xf2").value;
+ if($("xfm").value==="b"){$("xo").value=code();$("xm").textContent="Full backup code created. It includes all your data. Tap Copy."}
+ else{if(!a||!b||a>b){$("xm").textContent="Pick a valid from and to date.";return}$("xo").value=report(a,b);$("xm").textContent="Text created. Tap Copy, then paste it into Notes."}};
+$("xc").onclick=async()=>{const t=$("xo");if(!t.value){$("xm").textContent="Create the text first.";return}
+ let ok=false;try{await navigator.clipboard.writeText(t.value);ok=true}catch(e){}
+ if(!ok){t.focus();t.select();try{ok=document.execCommand("copy")}catch(e){}}
+ $("xm").textContent=ok?"Copied. Paste it into Notes.":"Couldn't copy automatically. Select the text in the box and copy it.";
+ if(ok&&t.value.startsWith("FUELLIFT-BACKUP-1:")){S.bk=new Date().toISOString();save();lastb();if(typeof bmsg==="function")bmsg()}};
+let rc=false;
+$("xr").onclick=()=>{const raw=$("xi").value.replace(/\s+/g,""),m=$("xrm");
+ if(!raw.startsWith("FUELLIFT-BACKUP-1:")){m.textContent="That isn't a Fuel & Lift backup code.";rc=false;$("xr").textContent="Restore";return}
+ if(!rc){rc=true;$("xr").textContent="Tap again to replace all data";m.textContent="This replaces everything currently in the app.";return}
+ try{const j=JSON.parse(new TextDecoder().decode(Uint8Array.from(atob(raw.slice(18)),c=>c.charCodeAt(0))));if(typeof j.food!=="object")throw 0;
+  S=Object.assign({tg:{k:2250,p:115,c:290,f:70,w:3000},food:{},gym:{},cardio:{},steps:{},run:{},water:{},study:{},cab:{},wt:[]},j);if(!S.items)S.items=DB.map(d=>d.slice());if(!S.plan)S.plan=JSON.parse(JSON.stringify(DEF));
+  save();items();$("xi").value="";m.textContent="Restored.";hist();lastb()}catch(e){m.textContent="Couldn't read that code. Copy the whole thing, including the start."}
+ rc=false;$("xr").textContent="Restore"};
+show("food");
+</script>
+</body>
+</html>
